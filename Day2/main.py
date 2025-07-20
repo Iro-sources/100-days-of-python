@@ -36,4 +36,14 @@ decay_time = 45_000_000_000
 ascii_banner = pyfiglet.figlet_format(" BMI CALCULATOR ")
 print(ascii_banner)
 
+weight = int(input("Enter your weight: \n"))
+height = float(input("Enter your height: \n"))
 
+bmi = weight / (height **2)
+#print(f"Your bmi is: {round(bmi, 2)}")
+
+if bmi < 18.5:
+    print("underweight")
+elif bmi <25:
+    print("normal weight")
+else: print("overweight")
