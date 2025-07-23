@@ -5,6 +5,7 @@ print("A tab can be created with a \ and the letter t \t like this")
 #Switching variables
 glass1 = "milk"
 glass2 = "juice"
+
 #Only 3 lines are allowed to switch milk and juice
 glass3 = glass1
 glass1 = glass2
