@@ -61,3 +61,21 @@ while robot_pos < len(maze) and maze[robot_pos] != 'G':
 
 print(maze)
 print("Robot is at index:", robot_pos)
+
+
+class Solution(object):
+    def subtractProductAndSum(self, n):
+        product = 1
+        total_sum = 0
+
+        while n > 0:
+            digit = n % 10
+            product *= digit
+            total_sum += digit
+            n //= 10
+
+        return product - total_sum
+
+result = Solution()
+print(result.subtractProductAndSum(234))
+
