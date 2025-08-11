@@ -1,5 +1,7 @@
 import random
 
+from reportlab.lib.pagesizes import letter
+
 word_list = ["aardvark", "baboon", "camel"]
 
 chosen_word= random.choice(word_list)
@@ -13,11 +15,12 @@ for position in range(word_length):
 
 print(place_holder)
 
+display_letter = " "
 guess = input("Guess a letter: ").lower()
 
 for letter in chosen_word:
     if guess == letter:
-        print("Right")
+        display_letter += letter
     else:
-        print("Wrong")
-
+        display_letter += "_ "
+print(display_letter)
