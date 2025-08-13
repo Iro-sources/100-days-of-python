@@ -1,44 +1,59 @@
 import random
+from Day7.hangman_words import word_list
+from Day7.hangman_art import stages
 
-from reportlab.lib.pagesizes import letter
+STARTING_LIVES = 6
 
-word_list = ["aardvark", "baboon", "camel"]
 
-chosen_word= random.choice(word_list)
-print(chosen_word)
+def choose_word(word_list):
+    """Pick a random word from the list."""
+    return random.choice(word_list)
 
-place_holder = " "
 
-word_length = len(chosen_word)
-for position in range(word_length):
-    place_holder += "_ "
+def create_placeholder(word, guessed_letters):
+    """Return the display string with guessed letters revealed."""
+    return " ".join([letter if letter in guessed_letters else "_" for letter in word])
 
-print(place_holder)
 
-game_over = False
-correct_letter = [ ]
-lives = 6
+def play_hangman():
+    chosen_word = choose_word(word_list)
+    guessed_letters = set()
+    lives = STARTING_LIVES
+    game_over = False
 
-while not game_over:
-    guess = input("Guess a letter: ").lower()
-    display_letter = " "
+    print("Welcome to Hangman!")
+    print(create_placeholder(chosen_word, guessed_letters))
 
-    for letter in chosen_word:
-        if guess == letter:
-            display_letter += letter
-            correct_letter.append(letter)
-        elif letter in correct_letter:
-            display_letter += letter
+    while not game_over:
+        guess = input("Guess a letter: ").lower().strip()
+
+        if not guess.isalpha() or len(guess) != 1:
+            print("❌ Please guess a single letter.")
+            continue
+
+        if guess in guessed_letters:
+            print(f"⚠️ You already guessed '{guess}'. Try again.")
+            continue
+
+        guessed_letters.add(guess)
+
+        if guess in chosen_word:
+            print("✅ Good guess!")
         else:
-            display_letter += "_ "
-    print(display_letter)
+            print(f"❌ '{guess}' is not in the word.")
+            lives -= 1
 
-    if guess not  in chosen_word:
-        lives -= 1
-        if lives == 0:
+        print(create_placeholder(chosen_word, guessed_letters))
+        print(f"Lives left: {lives}")
+        print(stages[lives])
+
+        if "_" not in create_placeholder(chosen_word, guessed_letters):
             game_over = True
-            print("you lose! ")
+            print(f"🎉 You win! The word was '{chosen_word}'.")
+        elif lives == 0:
+            game_over = True
+            print(f"💀 You lose! The word was '{chosen_word}'.")
 
-    if "_" not  in display_letter:
-        game_over = True
-        print("You win! ")
+
+if __name__ == "__main__":
+    play_hangman()
