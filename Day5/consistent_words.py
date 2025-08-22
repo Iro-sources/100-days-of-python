@@ -19,6 +19,5 @@ for word in list_of_words:
             break
     if isConsistent:
         count += 1
-# // Variable to count the number of consistent words
 
 print(count)
